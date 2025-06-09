@@ -14,7 +14,7 @@ const MainContent = () => {
     <>
       <Header acfData={acfData} /> 
       <HeroSection acfData={acfData} />
-      <AboutSection />
+      <AboutSection  acfData={acfData} />
       <Services />
     </>
   );

@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Rocket, ShieldCheck, Database, ChevronRight } from 'lucide-react';
 
-export default function AboutGuavaCreative() {
+export default function AboutGuavaCreative({acfData}) {
     const [isInView, setIsInView] = useState(false);
 
     useEffect(() => {
@@ -88,22 +88,22 @@ export default function AboutGuavaCreative() {
                             variants={itemVariants}
                             className="mt-3  font-bold tracking-tight text-gray-900 text-5xl"
                         >
-                            <span className="block">Creativity with Teeth.</span>
-                            <span className="block text-[#DB3246]">Strategy with Soul.</span>
+                            <span className="block">{acfData.header1}</span>
+                            <span className="block text-[#DB3246]">{acfData.header2}</span>
                         </motion.h1>
 
                         <motion.p
                             variants={itemVariants}
                             className="mt-6 text-lg text-gray-700 leading-relaxed"
                         >
-                            We're not just another creative agency. We're brand alchemists who transform the ordinary into the extraordinary, the overlooked into the unforgettable.
+                   {acfData.paragraph1}
                         </motion.p>
 
                         <motion.p
                             variants={itemVariants}
                             className="mt-4 text-lg text-gray-700 leading-relaxed"
                         >
-                            At Guava Creative, we've mastered the delicate balance between artistic vision and commercial impact. Every pixel, word, and concept serves a purpose—to make your brand impossible to ignore in a world that's learned to look away.
+                           {acfData.paragraph2}
                         </motion.p>
 
 
@@ -113,12 +113,12 @@ export default function AboutGuavaCreative() {
                             className="mt-10"
                         >
                             <motion.a
-                                href="/work"
+                                href={acfData.button_url}
                                 className="group inline-flex items-center px-6 py-2 bg-[#DB3246] text-white font-medium rounded-full overflow-hidden relative"
                                 whileHover={{ scale: 1.03 }}
                                 whileTap={{ scale: 0.98 }}
                             >
-                                <span className="relative z-10">See Our Work</span>
+                                <span className="relative z-10">{acfData.button}</span>
                                 <motion.span
                                     className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300"
                                     initial={{ x: "-100%" }}
@@ -168,7 +168,7 @@ export default function AboutGuavaCreative() {
                                     playsInline
                                     poster="https://guavacreative.com/preview.jpg"
                                 >
-                                    <source src="https://videos.pexels.com/video-files/3045052/3045052-uhd_2560_1440_24fps.mp4" type="video/mp4" />
+                                    <source src={acfData.video} type="video/mp4" />
                                     Your browser does not support the video tag.
                                 </video>
 
@@ -198,33 +198,33 @@ export default function AboutGuavaCreative() {
                 variants={itemVariants}
                 className="mt-12 bg-[#1a1a1a] max-w-6xl mx-auto rounded-xl p-8 sm:p-12 shadow-md"
             >
-                <h2 className="text-center text-4xl font-bold text-white mb-8">What Sets Us Apart</h2>
+                <h2 className="text-center text-4xl font-bold text-white mb-8">{acfData.header3}</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
                     <div className="flex flex-col items-center">
                         <div className="p-3 bg-[#DB3246] rounded-full">
                             <Rocket className="h-10 w-10 text-white" />
                         </div>
-                        <p className="mt-4 text-lg font-semibold text-white">Bold Strategy</p>
+                        <p className="mt-4 text-lg font-semibold text-white">{acfData.header3_first_subtitle}</p>
                         <p className="mt-2 text-sm text-white">
-                            Visionary ideas backed by market intelligence and fearless execution.
+                            {acfData.header3_first_paragraph}
                         </p>
                     </div>
                     <div className="flex flex-col items-center">
                         <div className="p-3 bg-[#DB3246] rounded-full">
                             <ShieldCheck className="h-10 w-10 text-white" />
                         </div>
-                        <p className="mt-4 text-lg font-semibold text-white">Craft Excellence</p>
+                        <p className="mt-4 text-lg font-semibold text-white">{acfData.header3_second_subtitle}</p>
                         <p className="mt-2 text-sm text-white">
-                            Precision in every detail. From identity to interaction, we obsess over quality.
+                            {acfData.header3_second_paragraph}
                         </p>
                     </div>
                     <div className="flex flex-col items-center">
                         <div className="p-3 bg-[#DB3246] rounded-full">
                             <Database className="h-10 w-10 text-white" />
                         </div>
-                        <p className="mt-4 text-lg font-semibold text-white">Measurable Impact</p>
+                        <p className="mt-4 text-lg font-semibold text-white">{acfData.header3_third_subtitle}</p>
                         <p className="mt-2 text-sm text-white">
-                            Data isn’t decoration—it’s direction. We create what moves metrics.
+                           {acfData.header3_third_paragraph}
                         </p>
                     </div>
                 </div>
