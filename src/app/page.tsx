@@ -13,7 +13,7 @@ const MainContent = () => {
   return (
     <>
       <Header acfData={acfData} /> 
-      <HeroSection />
+      <HeroSection acfData={acfData} />
       <AboutSection />
       <Services />
     </>

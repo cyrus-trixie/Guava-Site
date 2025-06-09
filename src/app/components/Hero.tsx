@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 
-export default function Hero() {
+export default function Hero({acfData}) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
@@ -50,8 +50,8 @@ export default function Hero() {
             transition={{ duration: 0.6 }}
           >
             <div className="relative rounded-full px-3 py-1 text-sm/6 text-white ring-1 ring-white hover:ring-gray-900/20">
-              Creative by nature. Precise by design.{' '}
-              <a href="#" className="font-semibold text-[#DB3246]">
+              {acfData.hero_banner_text}{' '}
+              <a href={acfData.hero_button1_url} className="font-semibold text-[#DB3246]">
                 <span aria-hidden="true" className="absolute inset-0" />
                 Read more <span aria-hidden="true">&rarr;</span>
               </a>
@@ -65,7 +65,7 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              Creative by nature. Precise by design.
+           {acfData.hero_heading}
             </motion.h1>
             
             <motion.p 
@@ -74,7 +74,7 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
             >
-              We craft digital experiences that are fast, fearless, and unforgettable. Strategy meets storytelling. Design meets impact.
+{acfData.hero_paragraph}
             </motion.p>
             
             <motion.div 
@@ -84,20 +84,20 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 0.6 }}
             >
               <motion.a
-                href="#"
+                href={acfData.hero_button2_url}
                 className="rounded-full bg-[#DB3246] px-7 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-[#DB3246] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                Build with Guava
+                {acfData.hero_button2text}
               </motion.a>
               <motion.a 
-                href="#" 
+                href={acfData.hero_button3_url} 
                 className="text-sm/6 font-semibold text-white"
                 whileHover={{ x: 5 }}
                 transition={{ type: "spring", stiffness: 400, damping: 10 }}
               >
-                See our work <span aria-hidden="true">→</span>
+                {acfData.hero_button3_text} <span aria-hidden="true">→</span>
               </motion.a>
             </motion.div>
           </div>
