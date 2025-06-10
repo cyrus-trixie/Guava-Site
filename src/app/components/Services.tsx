@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'; // Added React import for clarity
 import { motion } from 'framer-motion';
 import { 
   ArrowUpRight, 
@@ -22,60 +22,78 @@ const icons = {
   BarChart2
 };
 
+// ---
+// Define the interface for the ACF data specific to the Services component
+// ---
+interface ServicesAcfData {
+  small_header: string;
+  header1_title: string;
+  header2_title: string;
+  header_paragraph: string;
+  card_title1: string;
+  card_paragraph1: string;
+  card_title2: string;
+  card_paragraph2: string;
+  card_title3: string;
+  card_paragraph3: string;
+  card_title4: string;
+  card_paragraph4: string;
+  card_title5: string;
+  card_paragraph5: string;
+  card_title6: string;
+  card_paragraph6: string;
+}
 
-export default function Services({acfData}) {
+// ---
+// Define the props interface for the Services component
+// ---
+interface ServicesProps {
+  acfData: ServicesAcfData;
+}
+
+export default function Services({ acfData }: ServicesProps) {
   const [isInView, setIsInView] = useState(false);
-
-
-
-
-
   
-const features = [
-  {
-    name: acfData.card_title1,
-    description:
-      acfData.card_paragraph1,
-    icon: 'Lightbulb', // Fixed icon name
-    delay: 0,
-  },
-  {
-    name: acfData.card_title2,
-    description:
-      acfData.card_paragraph2,
-    icon: 'Globe', // Fixed icon name
-    delay: 0.1,
-  },
-  {
-    name: acfData.card_title3,
-    description:
-     acfData.card_paragraph3,
-    icon: 'Video', // Fixed icon name
-    delay: 0.2,
-  },
-  {
-    name: acfData.card_title4,
-    description:
-      acfData.card_paragraph4,
-    icon: 'MousePointerClick', // Fixed icon name
-    delay: 0.3,
-  },
-  {
-    name: acfData.card_title5,
-    description:
-      acfData.card_paragraph5,
-    icon: 'Megaphone', // Already correct
-    delay: 0.4,
-  },
-  {
-    name: acfData.card_title6,
-    description:
-      acfData.card_paragraph6,
-    icon: 'BarChart2', // Fixed icon name
-    delay: 0.5,
-  },
-];
-  
+  // The 'features' array is now correctly typed through acfData
+  const features = [
+    {
+      name: acfData.card_title1,
+      description: acfData.card_paragraph1,
+      icon: 'Lightbulb' as keyof typeof icons, // Type assertion for icon name
+      delay: 0,
+    },
+    {
+      name: acfData.card_title2,
+      description: acfData.card_paragraph2,
+      icon: 'Globe' as keyof typeof icons,
+      delay: 0.1,
+    },
+    {
+      name: acfData.card_title3,
+      description: acfData.card_paragraph3,
+      icon: 'Video' as keyof typeof icons,
+      delay: 0.2,
+    },
+    {
+      name: acfData.card_title4,
+      description: acfData.card_paragraph4,
+      icon: 'MousePointerClick' as keyof typeof icons,
+      delay: 0.3,
+    },
+    {
+      name: acfData.card_title5,
+      description: acfData.card_paragraph5,
+      icon: 'Megaphone' as keyof typeof icons,
+      delay: 0.4,
+    },
+    {
+      name: acfData.card_title6,
+      description: acfData.card_paragraph6,
+      icon: 'BarChart2' as keyof typeof icons,
+      delay: 0.5,
+    },
+  ];
+    
   useEffect(() => {
     // Set isInView to true after component mounts to trigger animations
     const timer = setTimeout(() => {
@@ -110,7 +128,7 @@ const features = [
 
   const featureVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: (delay) => ({
+    visible: (delay: number) => ({ // Explicitly type 'delay'
       opacity: 1,
       y: 0,
       transition: { 
@@ -142,7 +160,7 @@ const features = [
 
   // Background pattern component
   const BackgroundPattern = () => (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+    <div className="absolute inset-0 pointer-events-none overflow-hidden">
       <svg className="absolute right-0 top-16 h-full w-1/2 opacity-5" viewBox="0 0 500 500">
         <defs>
           <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
@@ -151,15 +169,15 @@ const features = [
         </defs>
         <rect width="100%" height="100%" fill="url(#grid)" />
       </svg>
-      <div className="absolute -left-24 top-1/4 w-64 h-64 rounded-full bg-gradient-to-r from-[#DB3246] to-pink-500 opacity-5 blur-3xl"></div>
-      <div className="absolute -right-24 bottom-1/4 w-96 h-96 rounded-full bg-gradient-to-l from-[#DB3246] to-orange-400 opacity-5 blur-3xl"></div>
+      <div className="absolute -left-24 top-1/4 h-64 w-64 rounded-full bg-gradient-to-r from-[#DB3246] to-pink-500 opacity-5 blur-3xl"></div>
+      <div className="absolute -right-24 bottom-1/4 h-96 w-96 rounded-full bg-gradient-to-l from-[#DB3246] to-orange-400 opacity-5 blur-3xl"></div>
     </div>
   );
 
   return (
-    <div className="relative bg-white pb-12 overflow-hidden">
+    <div className="relative overflow-hidden bg-white pb-12">
       <BackgroundPattern />
-     
+      
       <div className="mx-auto max-w-6xl px-6 lg:px-0">
         <motion.div 
           className="mx-auto max-w-4xl lg:text-center"
@@ -169,7 +187,7 @@ const features = [
         >
           <motion.div variants={itemVariants}>
             <motion.span 
-              className="inline-block text-sm font-medium tracking-widest text-[#DB3246] uppercase"
+              className="inline-block text-sm font-medium tracking-widest uppercase text-[#DB3246]"
               whileHover={{ x: 5 }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
             >
@@ -187,7 +205,7 @@ const features = [
           
           <motion.p 
             variants={itemVariants}
-            className="mt-6 text-lg/8 text-gray-600 max-w-2xl mx-auto"
+            className="mx-auto mt-6 max-w-2xl text-lg/8 text-gray-600"
           >
             {acfData.header_paragraph}
           </motion.p>
@@ -206,16 +224,16 @@ const features = [
               return (
                 <motion.div 
                   key={feature.name} 
-                  className="relative pl-16 group"
+                  className="group relative pl-16"
                   custom={feature.delay}
                   variants={featureVariants}
                   initial="hidden"
                   animate={isInView ? "visible" : "hidden"}
                   whileHover={{ scale: 1.02, transition: { duration: 0.3 } }}
                 >
-                  <dt className="text-lg font-semibold text-gray-900 flex items-center">
+                  <dt className="flex items-center text-lg font-semibold text-gray-900">
                     <motion.div 
-                      className="absolute top-0 left-0 flex size-12 items-center justify-center rounded-xl bg-[#DB3246] group-hover:shadow-lg"
+                      className="absolute left-0 top-0 flex size-12 items-center justify-center rounded-xl bg-[#DB3246] group-hover:shadow-lg"
                       variants={iconVariants}
                       whileHover="hover"
                     >
@@ -233,7 +251,7 @@ const features = [
                   
                   <motion.a
                     href="#"
-                    className="inline-flex items-center mt-4 text-sm font-medium text-[#DB3246] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    className="inline-flex items-center mt-4 text-sm font-medium text-[#DB3246] opacity-0 transition-opacity duration-300 group-hover:opacity-100"
                     whileHover={{ x: 5 }}
                     transition={{ type: "spring", stiffness: 400, damping: 10 }}
                   >
