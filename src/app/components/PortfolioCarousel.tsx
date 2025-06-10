@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, useState, useEffect, useCallback } from 'react';
-import { motion, useAnimation, AnimatePresence, PanInfo, EventInfo } from 'framer-motion'; // Added EventInfo
+import { motion, useAnimation, AnimatePresence, PanInfo } from 'framer-motion'; // Added EventInfo
 import { ArrowRight, ArrowLeft, ExternalLink } from 'lucide-react';
 import Image from 'next/image';
 // Removed specific 'MouseEvent' import as framer-motion's types are more appropriate
