@@ -19,7 +19,7 @@ export interface Project {
 }
 
 // Interface for a single project item coming directly from ACF
-export interface ProjectItemFromAcf {
+ interface ProjectItemFromAcf {
   title: string;
   client: string;
   description: string;
@@ -34,7 +34,7 @@ export interface ProjectItemFromAcf {
 }
 
 // Interface for the overall ACF data object passed to this component
-interface PortfolioCarouselAcfData {
+export interface PortfolioCarouselAcfData {
   projects_card?: ProjectItemFromAcf[]; // projects_card is an array of ProjectItemFromAcf, and it might be optional itself
 }
 
