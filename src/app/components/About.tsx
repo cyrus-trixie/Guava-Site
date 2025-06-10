@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { Rocket, ShieldCheck, Database, ChevronRight } from 'lucide-react';
 
 // Define the interface for the ACF data that this component expects
-interface AboutAcfData {
+export interface AboutAcfData {
   header1: string;
   header2: string;
   paragraph1: string;

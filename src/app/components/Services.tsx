@@ -25,7 +25,7 @@ const icons = {
 // ---
 // Define the interface for the ACF data specific to the Services component
 // ---
-interface ServicesAcfData {
+export interface ServicesAcfData {
   small_header: string;
   header1_title: string;
   header2_title: string;

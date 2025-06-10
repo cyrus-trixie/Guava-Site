@@ -6,7 +6,7 @@ import Spinner from './Spinner'; // Import your Spinner component
 
 // Define types for your ACF data structure based on usage in other components
 // Example: From Hero.tsx
-interface HeroAcfData {
+export interface HeroAcfData {
   hero_banner_text: string;
   hero_button1_url: string;
   hero_heading: string;

@@ -8,7 +8,7 @@ import Image from 'next/image';
 // import { MouseEvent } from 'react'; 
 
 // Define TypeScript interfaces
-interface Project {
+export interface Project {
   id: number;
   title: string;
   client: string;

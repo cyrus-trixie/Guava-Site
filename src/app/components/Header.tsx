@@ -8,7 +8,7 @@ import { Menu, X } from 'lucide-react';
 // ---
 // Define the interface for the ACF data that this component expects
 // ---
-interface HeaderAcfData {
+export interface HeaderAcfData {
   logo: string; // Assuming this is a URL string for the logo image
   nav1: string;
   nav2: string;

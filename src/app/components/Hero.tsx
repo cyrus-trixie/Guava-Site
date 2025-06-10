@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion'
 
 // Define the type for acfData based on its usage in the component
-interface HeroAcfData {
+export interface HeroAcfData {
   hero_banner_text: string;
   hero_button1_url: string;
   hero_heading: string;
