@@ -1,9 +1,10 @@
 'use client';
 
-import { useRef, useState, useEffect } from 'react';
-import { motion, useAnimation, AnimatePresence } from 'framer-motion'; // Re-import framer-motion
+import { useRef, useState, useEffect, useCallback } from 'react'; // Added useCallback
+import { motion, useAnimation, AnimatePresence, PanInfo } from 'framer-motion'; // Re-import framer-motion, added PanInfo
 import { ArrowRight, ArrowLeft, ExternalLink } from 'lucide-react';
 import Image from 'next/image';
+import { MouseEvent } from 'react'; // Added MouseEvent for type safety
 
 // Define TypeScript interfaces
 interface Project {
@@ -16,21 +17,43 @@ interface Project {
   url: string;
 }
 
+// Interface for a single project item coming directly from ACF
+interface ProjectItemFromAcf {
+  title: string;
+  client: string;
+  description: string;
+  tag1?: string; // These are optional as they might not always be set
+  tag2?: string;
+  tag3?: string;
+  image?: { // Image object from ACF
+    url: string;
+    // Add other image properties if ACF provides them, e.g., width, height, alt
+  };
+  project_url: string;
+}
+
+// Interface for the overall ACF data object passed to this component
+interface PortfolioCarouselAcfData {
+  projects_card?: ProjectItemFromAcf[]; // projects_card is an array of ProjectItemFromAcf, and it might be optional itself
+}
+
 interface PortfolioCarouselProps {
-  acfData: any; // The entire ACF data object from your WordPress API
+  acfData: PortfolioCarouselAcfData; // The ACF data object with better typing
 }
 
 export default function PortfolioCarousel({ acfData }: PortfolioCarouselProps) {
   // CORE LOGIC: Extract projects from acfData
-  const projects: Project[] = acfData?.projects_card?.map((projectItem: any, index: number) => ({
+  // Ensure acfData.projects_card exists and is an array before mapping
+  const projects: Project[] = (acfData?.projects_card || []).map((projectItem, index: number) => ({
     id: index,
     title: projectItem.title || '',
     client: projectItem.client || '',
     description: projectItem.description || '',
-    tags: [projectItem.tag1, projectItem.tag2, projectItem.tag3].filter(Boolean),
+    // Filter out any empty strings from tags (e.g., if tag1 is empty)
+    tags: [projectItem.tag1, projectItem.tag2, projectItem.tag3].filter((tag): tag is string => Boolean(tag)),
     image: projectItem.image?.url || 'https://via.placeholder.com/1200x800?text=No+Image',
     url: projectItem.project_url || '#',
-  })) || [];
+  }));
 
   // --- Framer Motion specific states and controls ---
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -46,6 +69,22 @@ export default function PortfolioCarousel({ acfData }: PortfolioCarouselProps) {
 
   // Progress bar animation
   const progressControls = useAnimation();
+
+  // Memoize handleNext and handlePrev functions using useCallback
+  const handleNext = useCallback(() => {
+    if (isAnimating || projects.length === 0) return;
+    setIsAnimating(true);
+    setDirection(1);
+    setCurrentIndex(prev => (prev === projects.length - 1 ? 0 : prev + 1));
+  }, [isAnimating, projects.length]); // Dependencies for useCallback
+
+  const handlePrev = useCallback(() => {
+    if (isAnimating || projects.length === 0) return;
+    setIsAnimating(true);
+    setDirection(-1);
+    setCurrentIndex(prev => (prev === 0 ? projects.length - 1 : prev - 1));
+  }, [isAnimating, projects.length]); // Dependencies for useCallback
+
 
   useEffect(() => {
     // Update progress when currentIndex changes
@@ -65,28 +104,14 @@ export default function PortfolioCarousel({ acfData }: PortfolioCarouselProps) {
 
     const timer = setTimeout(() => {
       if (!isDragging && !hoveringNav) {
-        handleNext();
+        handleNext(); // Now handleNext is a stable dependency
       }
     }, 6000);
 
     return () => clearTimeout(timer);
-  }, [currentIndex, isDragging, hoveringNav, projects.length]);
+  }, [currentIndex, isDragging, hoveringNav, projects.length, handleNext]); // Added handleNext to dependency array
 
-  const handlePrev = () => {
-    if (isAnimating || projects.length === 0) return;
-    setIsAnimating(true);
-    setDirection(-1);
-    setCurrentIndex(prev => (prev === 0 ? projects.length - 1 : prev - 1));
-  };
-
-  const handleNext = () => {
-    if (isAnimating || projects.length === 0) return;
-    setIsAnimating(true);
-    setDirection(1);
-    setCurrentIndex(prev => (prev === projects.length - 1 ? 0 : prev + 1));
-  };
-
-  const handleDragEnd = (event: any, info: any) => {
+  const handleDragEnd = (event: MouseEvent, info: PanInfo) => { // Typed event and info
     setIsDragging(false);
     if (Math.abs(info?.offset?.x || 0) > 100) {
       if (info.offset.x < 0) {

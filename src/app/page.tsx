@@ -28,4 +28,4 @@ export default function Page() {
       <MainContent /> {/* Render the MainContent as a child */}
     </ApiProvider>
   );
-}
+} 

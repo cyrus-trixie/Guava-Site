@@ -1,9 +1,23 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState } from 'react' // Removed useEffect as it's not used
 import { motion } from 'framer-motion'
 
-export default function Hero({acfData}) {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+// Define the type for acfData based on its usage in the component
+interface HeroAcfData {
+  hero_banner_text: string;
+  hero_button1_url: string;
+  hero_heading: string;
+  hero_paragraph: string;
+  hero_button2_url: string;
+  hero_button2text: string;
+  hero_button3_url: string;
+  hero_button3_text: string;
+}
+
+// Add a type for acfData prop
+export default function Hero({ acfData }: { acfData: HeroAcfData }) {
+  // Removed mobileMenuOpen and setMobileMenuOpen as they were not used
+  // const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
     <div className="bg-black">
