@@ -95,3 +95,27 @@ export interface FullAcfData extends
   // global_footer_text: string;
   // contact_phone: string;
 }
+
+// src/types/acf.d.ts (or src/types/acf.ts)
+
+export interface ServicesAcfData {
+  small_header: string;
+  header1_title: string;
+  header2_title: string;
+  header_paragraph: string;
+  card_title1: string;
+  card_paragraph1: string;
+  card_title2: string;
+  card_paragraph2: string;
+  card_title3: string;
+  card_paragraph3: string;
+  card_title4: string;
+  card_paragraph4: string;
+  card_title5: string;
+  card_paragraph5: string;
+  card_title6: string;
+  card_paragraph6: string;
+  // ... any other relevant fields
+}
+
+// Also include other interfaces like ProjectItemFromAcf, PortfolioCarouselAcfData etc.
