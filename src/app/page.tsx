@@ -4,7 +4,7 @@
 // ONLY import FullAcfData from the centralized types file.
 // The individual component ACF types are already included within FullAcfData
 // via the 'extends' keyword in src/types/acf.d.ts.
-import { FullAcfData } from '@/types/acf'; // Assuming '@/types/acf' is your alias
+import { FullAcfData } from './api/index'; // Assuming '@/types/acf' is your alias
 // --- MODIFIED IMPORTS END ---
 
 // These are imports for your React components, which are correct.
