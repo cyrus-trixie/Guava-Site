@@ -22,55 +22,60 @@ const icons = {
   BarChart2
 };
 
+
+export default function Services({acfData}) {
+  const [isInView, setIsInView] = useState(false);
+
+
+
+
+
+  
 const features = [
   {
-    name: 'Brand Strategy & Identity',
+    name: acfData.card_title1,
     description:
-      'We do not just design logos — we architect meaning. From tone to typography, we craft identities that cut through noise and burn into memory.',
+      acfData.card_paragraph1,
     icon: 'Lightbulb', // Fixed icon name
     delay: 0,
   },
   {
-    name: 'Web Design & Development',
+    name: acfData.card_title2,
     description:
-      'Pixel-perfect design meets performant code. We build bespoke, responsive websites that convert, engage, and scale with your business.',
+      acfData.card_paragraph2,
     icon: 'Globe', // Fixed icon name
     delay: 0.1,
   },
   {
-    name: 'Content Production',
+    name: acfData.card_title3,
     description:
-      'From sharp copy to cinematic video, we create content that speaks with your voice and moves your audience — emotionally and strategically.',
+     acfData.card_paragraph3,
     icon: 'Video', // Fixed icon name
     delay: 0.2,
   },
   {
-    name: 'UI/UX Design',
+    name: acfData.card_title4,
     description:
-      'We do purposeful. Interfaces that feel inevitable, flows that feel frictionless, and experiences users don not forget.',
+      acfData.card_paragraph4,
     icon: 'MousePointerClick', // Fixed icon name
     delay: 0.3,
   },
   {
-    name: 'Digital Marketing & Ads',
+    name: acfData.card_title5,
     description:
-      'We turn attention into action. From Google Ads to social strategy, we engineer campaigns that drive traffic, capture leads, and build momentum.',
+      acfData.card_paragraph5,
     icon: 'Megaphone', // Already correct
     delay: 0.4,
   },
   {
-    name: 'SEO & Analytics',
+    name: acfData.card_title6,
     description:
-      'Visibility is power. We optimize every pixel and line of code to rank, track, and refine—so your brand grows with intelligence, not guesswork.',
+      acfData.card_paragraph6,
     icon: 'BarChart2', // Fixed icon name
     delay: 0.5,
   },
 ];
   
-
-export default function Services() {
-  const [isInView, setIsInView] = useState(false);
-
   useEffect(() => {
     // Set isInView to true after component mounts to trigger animations
     const timer = setTimeout(() => {
@@ -168,7 +173,7 @@ export default function Services() {
               whileHover={{ x: 5 }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
             >
-              Our Services
+              {acfData.small_header}
             </motion.span>
           </motion.div>
           
@@ -176,16 +181,15 @@ export default function Services() {
             variants={itemVariants}
             className="mt-2 text-3xl font-bold tracking-tight text-pretty text-gray-900 sm:text-5xl lg:text-balance"
           >
-            We turn vision into
-            <span className="block text-[#DB3246]">digital reality</span>
+            {acfData.header1_title}
+            <span className="block text-[#DB3246]">{acfData.header2_title}</span>
           </motion.h2>
           
           <motion.p 
             variants={itemVariants}
             className="mt-6 text-lg/8 text-gray-600 max-w-2xl mx-auto"
           >
-            From strategy to execution, we create comprehensive digital experiences that 
-            elevate your brand, engage your audience, and drive measurable results.
+            {acfData.header_paragraph}
           </motion.p>
         </motion.div>
         
