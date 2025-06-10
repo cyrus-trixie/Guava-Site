@@ -19,7 +19,7 @@ export interface Project {
 }
 
 // Interface for a single project item coming directly from ACF
-interface ProjectItemFromAcf {
+export interface ProjectItemFromAcf {
   title: string;
   client: string;
   description: string;
