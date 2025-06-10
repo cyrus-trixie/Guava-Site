@@ -8,7 +8,7 @@ import Image from 'next/image';
 // --- Essential Fix: Import ACF types from your centralized types file ---
 // This assumes you have src/types/acf.d.ts (or src/types/acf.ts)
 // with the PortfolioCarouselAcfData and ProjectItemFromAcf interfaces defined.
-import { PortfolioCarouselAcfData, ProjectItemFromAcf } from '../api/index';
+import { PortfolioCarouselAcfData } from '../api/index';
 // --- End of Essential Fix ---
 
 // Define TypeScript interfaces
