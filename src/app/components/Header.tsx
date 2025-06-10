@@ -1,13 +1,19 @@
 'use client';
 
-import React, { useState, useEffect } from 'react'; // Added React import for clarity
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Menu, X } from 'lucide-react';
 
-// ---
-// Define the interface for the ACF data that this component expects
-// ---
+// --- MODIFIED IMPORT START ---
+// Import the HeaderAcfData interface from your centralized types file.
+// Adjust the path if your 'types' directory is located differently.
+import { HeaderAcfData } from '../api/index';
+// --- MODIFIED IMPORT END ---
+
+// --- REMOVE THE LOCAL INTERFACE DEFINITION ---
+// Delete this block, as it's now defined globally in src/types/acf.d.ts
+/*
 export interface HeaderAcfData {
   logo: string; // Assuming this is a URL string for the logo image
   nav1: string;
@@ -18,9 +24,12 @@ export interface HeaderAcfData {
   mobilecontacturl: string;
   mobilecontacttext: string;
 }
+*/
+// --- END REMOVAL ---
+
 
 // ---
-// Define the props interface for the Header component
+// Define the props interface for the Header component (this remains the same)
 // ---
 interface HeaderProps {
   acfData: HeaderAcfData;
@@ -33,9 +42,7 @@ const Header = ({ acfData }: HeaderProps) => {
   // Handle scroll behavior for shadow and background opacity
   useEffect(() => {
     const handleScroll = () => {
-      // This condition determines when the header styling changes
-      // Based on your code, it becomes 'scrolled' after 900px
-      setIsScrolled(window.scrollY > 900); 
+      setIsScrolled(window.scrollY > 900);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -44,8 +51,8 @@ const Header = ({ acfData }: HeaderProps) => {
 
   return (
     <header
-      className={`fixed left-0 right-0 top-6 z-50 mx-auto w-full max-w-7xl px-4 transition-all duration-300 ease-in-out sm:px-6 lg:px-8 
-        ${isScrolled ? 'translate-y-0' : 'translate-y-0'} 
+      className={`fixed left-0 right-0 top-6 z-50 mx-auto w-full max-w-7xl px-4 transition-all duration-300 ease-in-out sm:px-6 lg:px-8
+        ${isScrolled ? 'translate-y-0' : 'translate-y-0'}
         `}
     >
       <div

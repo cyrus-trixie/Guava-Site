@@ -1,13 +1,18 @@
 'use client';
 
 import { useRef, useState, useEffect, useCallback } from 'react';
-import { motion, useAnimation, AnimatePresence, PanInfo } from 'framer-motion'; // Added EventInfo
+import { motion, useAnimation, AnimatePresence, PanInfo } from 'framer-motion';
 import { ArrowRight, ArrowLeft, ExternalLink } from 'lucide-react';
 import Image from 'next/image';
-// Removed specific 'MouseEvent' import as framer-motion's types are more appropriate
-// import { MouseEvent } from 'react'; 
+
+// --- Essential Fix: Import ACF types from your centralized types file ---
+// This assumes you have src/types/acf.d.ts (or src/types/acf.ts)
+// with the PortfolioCarouselAcfData and ProjectItemFromAcf interfaces defined.
+import { PortfolioCarouselAcfData, ProjectItemFromAcf } from '../api/index';
+// --- End of Essential Fix ---
 
 // Define TypeScript interfaces
+// This Project interface remains local as it's the transformed data shape used in this component.
 export interface Project {
   id: number;
   title: string;
@@ -18,28 +23,13 @@ export interface Project {
   url: string;
 }
 
-// Interface for a single project item coming directly from ACF
- interface ProjectItemFromAcf {
-  title: string;
-  client: string;
-  description: string;
-  tag1?: string; // These are optional as they might not always be set
-  tag2?: string;
-  tag3?: string;
-  image?: { // Image object from ACF
-    url: string;
-    // Add other image properties if ACF provides them, e.g., width, height, alt
-  };
-  project_url: string;
-}
-
-// Interface for the overall ACF data object passed to this component
-export interface PortfolioCarouselAcfData {
-  projects_card?: ProjectItemFromAcf[]; // projects_card is an array of ProjectItemFromAcf, and it might be optional itself
-}
+// --- Removed: These interfaces are now imported from '@/types/acf' and should NOT be here ---
+// interface ProjectItemFromAcf { /* ... */ }
+// export interface PortfolioCarouselAcfData { /* ... */ }
+// --- End Removed Block ---
 
 interface PortfolioCarouselProps {
-  acfData: PortfolioCarouselAcfData; // The ACF data object with better typing
+  acfData: PortfolioCarouselAcfData;
 }
 
 export default function PortfolioCarousel({ acfData }: PortfolioCarouselProps) {
@@ -49,7 +39,7 @@ export default function PortfolioCarousel({ acfData }: PortfolioCarouselProps) {
     id: index,
     title: projectItem.title || '',
     client: projectItem.client || '',
-    description: projectItem.description || '',
+    description: projectItem.description || '', // This was already correct in your original code
     // Filter out any empty strings from tags (e.g., if tag1 is empty)
     tags: [projectItem.tag1, projectItem.tag2, projectItem.tag3].filter((tag): tag is string => Boolean(tag)),
     image: projectItem.image?.url || 'https://via.placeholder.com/1200x800?text=No+Image',
@@ -68,7 +58,7 @@ export default function PortfolioCarousel({ acfData }: PortfolioCarouselProps) {
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const [hoveringNav, setHoveringNav] = useState<"next" | "prev" | false>(false);
 
-  // Progress bar animation
+  // Progress bar animation (Keeping this commented out as per your original code)
   const progressControls = useAnimation();
 
   // Memoize handleNext and handlePrev functions using useCallback
@@ -86,10 +76,11 @@ export default function PortfolioCarousel({ acfData }: PortfolioCarouselProps) {
     setCurrentIndex(prev => (prev === 0 ? projects.length - 1 : prev - 1));
   }, [isAnimating, projects.length]); // Dependencies for useCallback
 
-
   useEffect(() => {
     // Update progress when currentIndex changes
     if (projects.length > 0) {
+      // This part was commented out in your original code, keeping it that way.
+      // If you decide to uncomment it later, it will animate the width.
       progressControls.start({
         width: `${(currentIndex / (projects.length - 1)) * 100}%`,
         transition: { duration: 0.6, ease: [0.32, 0.72, 0, 1] }
@@ -112,14 +103,7 @@ export default function PortfolioCarousel({ acfData }: PortfolioCarouselProps) {
     return () => clearTimeout(timer);
   }, [currentIndex, isDragging, hoveringNav, projects.length, handleNext]); // Added handleNext to dependency array
 
-  // --- FIX START ---
-  // The 'event' parameter from framer-motion's drag events can be MouseEvent, TouchEvent, or PointerEvent.
-  // We can use the generic 'Event' type or import React's specific synthetic event types.
-  // For framer-motion, using Event | PointerEvent | TouchEvent is often robust.
-  // Or simply using 'React.MouseEvent | React.TouchEvent | React.PointerEvent' as the event type.
-  // Framer Motion's PanInfo type already provides the necessary types implicitly, so we just ensure consistency.
-  const handleDragEnd = (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => { // Corrected event type
-  // --- FIX END ---
+  const handleDragEnd = (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
     setIsDragging(false);
     if (Math.abs(info?.offset?.x || 0) > 100) {
       if (info.offset.x < 0) {
@@ -352,6 +336,7 @@ export default function PortfolioCarousel({ acfData }: PortfolioCarouselProps) {
       </div>
 
       {/* Progress Bar (Optional, can be added if needed) */}
+      {/* This section remains commented out, just as it was in your original code. */}
       {/* Example:
       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-48 h-1 bg-white/20 rounded-full z-30">
         <motion.div

@@ -1,8 +1,8 @@
 'use client';
-import React, { useState, useEffect } from 'react'; // Added React import for clarity
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { 
-  ArrowUpRight, 
+import {
+  ArrowUpRight,
   Lightbulb,
   Globe,
   Video,
@@ -11,9 +11,14 @@ import {
   BarChart2
 } from 'lucide-react';
 
+// --- MODIFIED IMPORT START ---
+// Import the ServicesAcfData interface from your centralized types file.
+import { ServicesAcfData } from '../api/index';
+// --- MODIFIED IMPORT END ---
+
 // Custom icons that match our aesthetic better than heroicons
 const icons = {
-  ArrowUpRight, 
+  ArrowUpRight,
   Lightbulb,
   Globe,
   Video,
@@ -22,9 +27,9 @@ const icons = {
   BarChart2
 };
 
-// ---
-// Define the interface for the ACF data specific to the Services component
-// ---
+// --- REMOVE THE LOCAL INTERFACE DEFINITION ---
+// Delete this block, as it's now defined globally in src/types/acf.d.ts
+/*
 export interface ServicesAcfData {
   small_header: string;
   header1_title: string;
@@ -43,9 +48,11 @@ export interface ServicesAcfData {
   card_title6: string;
   card_paragraph6: string;
 }
+*/
+// --- END REMOVAL ---
 
 // ---
-// Define the props interface for the Services component
+// Define the props interface for the Services component (this part remains the same)
 // ---
 interface ServicesProps {
   acfData: ServicesAcfData;
@@ -53,7 +60,7 @@ interface ServicesProps {
 
 export default function Services({ acfData }: ServicesProps) {
   const [isInView, setIsInView] = useState(false);
-  
+
   // The 'features' array is now correctly typed through acfData
   const features = [
     {
@@ -93,7 +100,7 @@ export default function Services({ acfData }: ServicesProps) {
       delay: 0.5,
     },
   ];
-    
+
   useEffect(() => {
     // Set isInView to true after component mounts to trigger animations
     const timer = setTimeout(() => {
@@ -119,8 +126,8 @@ export default function Services({ acfData }: ServicesProps) {
     visible: {
       y: 0,
       opacity: 1,
-      transition: { 
-        duration: 0.8, 
+      transition: {
+        duration: 0.8,
         ease: [0.25, 0.1, 0.25, 1.0],
       }
     }
@@ -131,29 +138,29 @@ export default function Services({ acfData }: ServicesProps) {
     visible: (delay: number) => ({ // Explicitly type 'delay'
       opacity: 1,
       y: 0,
-      transition: { 
-        duration: 0.7, 
+      transition: {
+        duration: 0.7,
         ease: [0.25, 0.1, 0.25, 1.0],
-        delay: delay 
+        delay: delay
       }
     })
   };
 
   const iconVariants = {
     hidden: { scale: 0.8, opacity: 0 },
-    visible: { 
-      scale: 1, 
+    visible: {
+      scale: 1,
       opacity: 1,
-      transition: { 
+      transition: {
         duration: 0.5,
         type: "spring",
         stiffness: 200,
         damping: 10
       }
     },
-    hover: { 
+    hover: {
       scale: 1.1,
-      rotate: 5, 
+      rotate: 5,
       transition: { duration: 0.3 }
     }
   };
@@ -177,16 +184,16 @@ export default function Services({ acfData }: ServicesProps) {
   return (
     <div className="relative overflow-hidden bg-white pb-12">
       <BackgroundPattern />
-      
+
       <div className="mx-auto max-w-6xl px-6 lg:px-0">
-        <motion.div 
+        <motion.div
           className="mx-auto max-w-4xl lg:text-center"
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
           variants={containerVariants}
         >
           <motion.div variants={itemVariants}>
-            <motion.span 
+            <motion.span
               className="inline-block text-sm font-medium tracking-widest uppercase text-[#DB3246]"
               whileHover={{ x: 5 }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
@@ -194,24 +201,24 @@ export default function Services({ acfData }: ServicesProps) {
               {acfData.small_header}
             </motion.span>
           </motion.div>
-          
-          <motion.h2 
+
+          <motion.h2
             variants={itemVariants}
             className="mt-2 text-3xl font-bold tracking-tight text-pretty text-gray-900 sm:text-5xl lg:text-balance"
           >
             {acfData.header1_title}
             <span className="block text-[#DB3246]">{acfData.header2_title}</span>
           </motion.h2>
-          
-          <motion.p 
+
+          <motion.p
             variants={itemVariants}
             className="mx-auto mt-6 max-w-2xl text-lg/8 text-gray-600"
           >
             {acfData.header_paragraph}
           </motion.p>
         </motion.div>
-        
-        <motion.div 
+
+        <motion.div
           className="mx-auto mt-16"
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
@@ -220,10 +227,10 @@ export default function Services({ acfData }: ServicesProps) {
           <dl className="grid max-w-xl grid-cols-1 gap-x-12 gap-y-8 lg:max-w-none lg:grid-cols-3 lg:gap-y-8">
             {features.map((feature) => {
               const Icon = icons[feature.icon];
-              
+
               return (
-                <motion.div 
-                  key={feature.name} 
+                <motion.div
+                  key={feature.name}
                   className="group relative pl-16"
                   custom={feature.delay}
                   variants={featureVariants}
@@ -232,7 +239,7 @@ export default function Services({ acfData }: ServicesProps) {
                   whileHover={{ scale: 1.02, transition: { duration: 0.3 } }}
                 >
                   <dt className="flex items-center text-lg font-semibold text-gray-900">
-                    <motion.div 
+                    <motion.div
                       className="absolute left-0 top-0 flex size-12 items-center justify-center rounded-xl bg-[#DB3246] group-hover:shadow-lg"
                       variants={iconVariants}
                       whileHover="hover"
@@ -242,13 +249,13 @@ export default function Services({ acfData }: ServicesProps) {
                     <span>{feature.name}</span>
                   </dt>
                   <dd className="mt-3 text-base/7 text-gray-600">{feature.description}</dd>
-                  
-                  <motion.div 
+
+                  <motion.div
                     initial={{ opacity: 0, width: 0 }}
                     whileHover={{ opacity: 1, width: '100%', transition: { duration: 0.3 } }}
                     className="absolute bottom-0 left-0 h-px bg-gradient-to-r from-[#DB3246] to-transparent"
                   />
-                  
+
                   <motion.a
                     href="#"
                     className="inline-flex items-center mt-4 text-sm font-medium text-[#DB3246] opacity-0 transition-opacity duration-300 group-hover:opacity-100"

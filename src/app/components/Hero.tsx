@@ -1,8 +1,17 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import React from 'react'; // Added React import if not already present due to 'useState' or 'useEffect'
 
-// Define the type for acfData based on its usage in the component
+// --- MODIFIED IMPORT START ---
+// Import the HeroAcfData interface from your centralized types file.
+// Adjust the path if your 'types' directory is located differently.
+import { HeroAcfData } from '../api/index';
+// --- MODIFIED IMPORT END ---
+
+// --- REMOVE THE LOCAL INTERFACE DEFINITION ---
+// Delete this block, as it's now defined globally in src/types/acf.d.ts
+/*
 export interface HeroAcfData {
   hero_banner_text: string;
   hero_button1_url: string;
@@ -13,12 +22,11 @@ export interface HeroAcfData {
   hero_button3_url: string;
   hero_button3_text: string;
 }
+*/
+// --- END REMOVAL ---
 
-// Add a type for acfData prop
+// Add a type for acfData prop (this part remains the same)
 export default function Hero({ acfData }: { acfData: HeroAcfData }) {
-  // Removed mobileMenuOpen and setMobileMenuOpen as they were not used
-  // const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-
   return (
     <div className="bg-black">
       <div className="relative isolate px-6 pt-4 lg:px-8">

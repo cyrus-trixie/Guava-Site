@@ -1,10 +1,18 @@
 'use client';
 
-import React, { useState, useEffect } from 'react'; // Added React import for clarity
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Rocket, ShieldCheck, Database, ChevronRight } from 'lucide-react';
 
-// Define the interface for the ACF data that this component expects
+// --- MODIFIED IMPORT START ---
+// Import the AboutAcfData interface from your centralized types file.
+// Adjust the path if your 'types' directory is located differently.
+import { AboutAcfData } from '../api/index'; 
+// --- MODIFIED IMPORT END ---
+
+// --- REMOVE THE LOCAL INTERFACE DEFINITION ---
+// Delete this block, as it's now defined globally in src/types/acf.d.ts
+/*
 export interface AboutAcfData {
   header1: string;
   header2: string;
@@ -12,7 +20,7 @@ export interface AboutAcfData {
   paragraph2: string;
   button_url: string;
   button: string;
-  video: string; // Assuming this is a URL string
+  video: string;
   header3: string;
   header3_first_subtitle: string;
   header3_first_paragraph: string;
@@ -21,8 +29,11 @@ export interface AboutAcfData {
   header3_third_subtitle: string;
   header3_third_paragraph: string;
 }
+*/
+// --- END REMOVAL ---
 
-// Define the props interface for the component
+
+// Define the props interface for the component (this remains the same)
 interface AboutGuavaCreativeProps {
   acfData: AboutAcfData;
 }
@@ -31,15 +42,12 @@ export default function AboutGuavaCreative({ acfData }: AboutGuavaCreativeProps)
   const [isInView, setIsInView] = useState(false);
 
   useEffect(() => {
-    // Set isInView to true after component mounts to trigger animations
-    // A slight delay ensures the component is mounted before animating
     const timer = setTimeout(() => {
       setIsInView(true);
     }, 100);
     return () => clearTimeout(timer);
-  }, []); // Empty dependency array means this runs once on mount
+  }, []);
 
-  // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -69,9 +77,8 @@ export default function AboutGuavaCreative({ acfData }: AboutGuavaCreativeProps)
     },
   };
 
-  // Background pattern - subtle dot grid
   const BackgroundPattern = () => (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+    <div className="absolute inset-0 pointer-events-none overflow-hidden">
       <div className="absolute h-full w-full opacity-5">
         <svg height="100%" width="100%" xmlns="http://www.w3.org/2000/svg">
           <defs>
@@ -94,7 +101,6 @@ export default function AboutGuavaCreative({ acfData }: AboutGuavaCreativeProps)
     <div className="relative overflow-hidden bg-white px-6 py-16 lg:px-0">
       <BackgroundPattern />
 
-      {/* Accent line */}
       <motion.div
         initial={{ width: 0 }}
         animate={{ width: '100%' }}
@@ -109,7 +115,6 @@ export default function AboutGuavaCreative({ acfData }: AboutGuavaCreativeProps)
           animate={isInView ? 'visible' : 'hidden'}
           variants={containerVariants}
         >
-          {/* Left Column: Text Content */}
           <div className="flex flex-col justify-center">
             <motion.h1
               variants={itemVariants}
@@ -152,7 +157,6 @@ export default function AboutGuavaCreative({ acfData }: AboutGuavaCreativeProps)
             </motion.div>
           </div>
 
-          {/* Right Column: Video with Animation */}
           <motion.div
             className="relative flex items-center justify-center lg:sticky lg:top-24"
             variants={videoVariants}
@@ -162,7 +166,6 @@ export default function AboutGuavaCreative({ acfData }: AboutGuavaCreativeProps)
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.5 }}
             >
-              {/* Accent shape behind video */}
               <motion.div
                 className="absolute -right-6 -top-6 h-40 w-40 rounded-full bg-[#DB3246] opacity-20 blur-xl"
                 animate={{
@@ -194,7 +197,6 @@ export default function AboutGuavaCreative({ acfData }: AboutGuavaCreativeProps)
                   Your browser does not support the video tag.
                 </video>
 
-                {/* Accent lines */}
                 <motion.div
                   className="absolute left-0 top-0 h-1 w-full rounded-full bg-[#DB3246] opacity-70"
                   initial={{ width: 0 }}
