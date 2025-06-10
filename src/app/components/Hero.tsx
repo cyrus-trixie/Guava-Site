@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react' // Removed useEffect as it's not used
+
 import { motion } from 'framer-motion'
 
 // Define the type for acfData based on its usage in the component
