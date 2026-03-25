@@ -75,7 +75,7 @@ export default function PortfolioCarousel({ acfData }: PortfolioCarouselProps) {
     setDirection(-1);
     setCurrentIndex(prev => (prev === 0 ? projects.length - 1 : prev - 1));
   }, [isAnimating, projects.length]); // Dependencies for useCallback
-
+//i was here
   useEffect(() => {
     // Update progress when currentIndex changes
     if (projects.length > 0) {
